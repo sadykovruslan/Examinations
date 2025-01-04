@@ -14,10 +14,14 @@ import java.util.List;
 public class ExaminationsConfig {
 
     @Value("#{'${keys}'.split(',')}")
-    public List<Integer> current;
+    public List<Integer> keys;
+
 
     @Bean
-    public ResultProcessor resultProcessor(){
+    public ResultProcessor resultProcessor() {
         return new InMemoryResultProcessor();
     }
+
+
+
 }

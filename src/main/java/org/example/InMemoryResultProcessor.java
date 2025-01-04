@@ -1,13 +1,13 @@
 package org.example;
 
+import org.example.Config.ExaminationsConfig;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import org.example.Config.ExaminationsConfig;
 
 public class InMemoryResultProcessor implements ResultProcessor {
-    ExaminationsConfig ec = new ExaminationsConfig();
     List <String> onlyRightMarks = new ArrayList<>();
 
     /**
@@ -47,8 +47,8 @@ public class InMemoryResultProcessor implements ResultProcessor {
 
     /**
      * построчно сравниваем результаты с правильными ответами и заносим их в лист. Где ответы неверны - заносим null,
-     * чтобы сохранить интекды ответов
-     * @return список с правильнымии ответами
+     * чтобы сохранить индексы ответов
+     * @return список с правильными ответами
      * @throws IOException
      */
 
@@ -65,31 +65,25 @@ public class InMemoryResultProcessor implements ResultProcessor {
     }
 
     /**
-     * в каждом цикле прибавляем ключ из properties-файла.
+     * в цикле прибавляем ключ в зависимости от номера вопроса.
      * @return оценка студента.
      * пока не поучается реализовать, т.к. лист с ключами не заполняется из properties-файла
-     * @throws IOException
      */
 
     @Override
     public int getMark() throws IOException {
+        ExaminationsConfig ec = new ExaminationsConfig();
         int mark = 0;
         compareResult();
-        for (int i = 0; i < 3; i++) {
-            if(onlyRightMarks.get(i) !=null) {
-                mark +=ec.current.get(0);
+        for (int i = 0; i < onlyRightMarks.size(); i++) {
+            if(onlyRightMarks.get(i) != null && i < 2) {
+                mark += ec.keys.get(0);
             }
-        }
-
-        for (int i = 4; i < 7; i++) {
-            if(onlyRightMarks.get(i) !=null) {
-                mark +=ec.current.get(1);
+            if(onlyRightMarks.get(i) != null && i > 4 && i < 7) {
+                mark += ec.keys.get(1);
             }
-        }
-
-        for (int i = 8; i < 9; i++) {
-            if(onlyRightMarks.get(i) !=null) {
-                mark +=ec.current.get(2);
+            if(onlyRightMarks.get(i) != null && i > 8) {
+                mark += ec.keys.get(2);
             }
         }
         System.out.println("Your grade is: " + mark);
