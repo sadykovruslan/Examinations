@@ -12,11 +12,5 @@ public class Main {
 
         var resultProcessor = examinationsConfig.getBean(ResultProcessor.class);
         resultProcessor.getMark();
-
-//        InMemoryResultProcessor rp = new InMemoryResultProcessor();
-//        rp.getMark();
-
-
-
+        }
     }
-}

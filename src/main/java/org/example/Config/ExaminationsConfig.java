@@ -19,9 +19,6 @@ public class ExaminationsConfig {
 
     @Bean
     public ResultProcessor resultProcessor() {
-        return new InMemoryResultProcessor();
+        return new InMemoryResultProcessor(this);
     }
-
-
-
 }

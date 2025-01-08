@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Config.ExaminationsConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,7 +9,13 @@ import java.io.IOException;
 import java.util.*;
 
 public class InMemoryResultProcessor implements ResultProcessor {
+    private final ExaminationsConfig ec;
     List <String> onlyRightMarks = new ArrayList<>();
+
+    @Autowired
+    public InMemoryResultProcessor(ExaminationsConfig ec) {
+        this.ec = ec;
+    }
 
     /**
      * считывает данные с txt-файла и записывает их в list
@@ -67,12 +74,10 @@ public class InMemoryResultProcessor implements ResultProcessor {
     /**
      * в цикле прибавляем ключ в зависимости от номера вопроса.
      * @return оценка студента.
-     * пока не поучается реализовать, т.к. лист с ключами не заполняется из properties-файла
      */
 
     @Override
     public int getMark() throws IOException {
-        ExaminationsConfig ec = new ExaminationsConfig();
         int mark = 0;
         compareResult();
         for (int i = 0; i < onlyRightMarks.size(); i++) {
