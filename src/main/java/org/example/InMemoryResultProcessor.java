@@ -41,78 +41,50 @@ public class InMemoryResultProcessor implements ResultProcessor {
         return parsedResults;
     }
 
-
-     // получаем результаты правильных ответов из файла
-    @Override
-    public List<String> getRightAnswers() throws IOException {
-        return parseResultFromFile("D:\\Java\\Examinations\\src\\main\\resources\\right-answers.txt");
-    }
-
-    // получаем результаты ответов студента из файла
-    @Override
-    public List<String> getCurrentAnswers() throws IOException {
-        return parseResultFromFile("D:\\Java\\Examinations\\src\\main\\resources\\current-answers.txt");
-    }
-
     @Override
     public void getAllResults(){
-//        Thread right = new Thread (new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    rightAnswers = parseResultFromFile("D:\\Java\\Examinations\\src\\main\\resources\\right-answers.txt");
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        });
-//
-//        Thread current = new Thread (new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    currentAnswers = parseResultFromFile("D:\\Java\\Examinations\\src\\main\\resources\\current-answers.txt");
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        });
-//
-//        right.start();
-//        current.start();
+        Thread right = new Thread (new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    rightAnswers = parseResultFromFile("D:\\Java\\Examinations\\src\\main\\resources\\right-answers.txt");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        Thread current = new Thread (new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    currentAnswers = parseResultFromFile("D:\\Java\\Examinations\\src\\main\\resources\\current-answers.txt");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        right.start();
+        current.start();
     }
 
     /**
      * Построчно сравниваем результаты с правильными ответами и заносим их в лист. Где ответы неверны - заносим null,
      * чтобы сохранить индексы ответов
-     * @return список с правильными ответами
+     *
      * @throws IOException
      */
 
-//    @Override
-//    public List <String> compareResult() throws IOException {
-////        getAllResults();
-//        getCurrentAnswers();
-//        getRightAnswers();
-//        for (int i = 0; i < rightAnswers.size(); i++) {
-//            if (currentAnswers.get(i).equals(rightAnswers.get(i))){
-//                onlyRightMarks.add(currentAnswers.get(i));
-//            } else onlyRightMarks.add(null);
-//        }
-//        return onlyRightMarks;
-//    }
-
     @Override
-    public List <String> compareResult() throws IOException {
-//        getAllResults();
-        getCurrentAnswers();
-        getRightAnswers();
-        for (int i = 0; i < getRightAnswers().size(); i++) {
-            if (getCurrentAnswers().get(i).equals(getRightAnswers().get(i))){
-                onlyRightMarks.add(getCurrentAnswers().get(i));
+    public void compareResult() throws IOException, InterruptedException {
+        getAllResults();
+        Thread.sleep(1000);
+        for (int i = 0; i < rightAnswers.size(); i++) {
+            if (currentAnswers.get(i).equals(rightAnswers.get(i))){
+                onlyRightMarks.add(currentAnswers.get(i));
             } else onlyRightMarks.add(null);
         }
-        return onlyRightMarks;
     }
 
     /**
@@ -122,7 +94,7 @@ public class InMemoryResultProcessor implements ResultProcessor {
 
 
     @Override
-    public int getMark() throws IOException {
+    public int getMark() throws IOException, InterruptedException {
         int mark = 0;
         compareResult();
         for (int i = 0; i < onlyRightMarks.size(); i++) {

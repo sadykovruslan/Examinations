@@ -7,7 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         ApplicationContext examinationsConfig = new AnnotationConfigApplicationContext(ExaminationsConfig.class);
 
         var resultProcessor = examinationsConfig.getBean(ResultProcessor.class);

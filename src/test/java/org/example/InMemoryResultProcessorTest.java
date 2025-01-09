@@ -37,7 +37,7 @@ class InMemoryResultProcessorTest {
     }
 
     @Test
-    void getMark() throws IOException {
+    void getMark() throws IOException, InterruptedException {
         Assertions.assertEquals(4, irp.getMark());
     }
 }
