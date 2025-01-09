@@ -3,6 +3,7 @@ package org.example;
 import org.example.Config.ExaminationsConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
@@ -10,14 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryResultProcessorTest {
 
-    ExaminationsConfig ec;
-    InMemoryResultProcessor irp = new InMemoryResultProcessor(ec);
+    private ExaminationsConfig ec;
+    private final InMemoryResultProcessor irp = new InMemoryResultProcessor(ec);
     String path = "D:\\Java\\Examinations\\src\\main\\resources\\right-answers.txt";
 
-//    public InMemoryResultProcessorTest(InMemoryResultProcessor irp, ExaminationsConfig ec, String path) {
-//        this.irp = irp;
+//    @Autowired
+//    public InMemoryResultProcessorTest(ExaminationsConfigTest ec) {
 //        this.ec = ec;
-//        this.path = path;
 //    }
 
 
