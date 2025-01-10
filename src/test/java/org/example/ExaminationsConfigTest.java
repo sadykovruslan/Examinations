@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.Config.PropertiesConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +14,8 @@ public class ExaminationsConfigTest {
     @Value("#{'${keys}'.split(',')}")
     public List<Integer> keys;
 
-
-//    @Bean
-//    public InMemoryResultProcessorTest resultProcessor() {
-//        return new InMemoryResultProcessorTest(this);
-//    }
+    @Bean
+    public InMemoryResultProcessorTest resultProcessor() {
+        return new InMemoryResultProcessorTest(this);
+    }
 }
