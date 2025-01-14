@@ -1,27 +1,24 @@
 package org.example;
 
 import org.example.Config.ExaminationsConfig;
+import org.example.Config.PropertiesConfiguration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-
 @SpringBootTest
-@ContextConfiguration(classes = {ExaminationsConfigTest.class, PropertiesConfigurationTest.class})
+@ContextConfiguration(classes = {ExaminationsConfig.class, PropertiesConfiguration.class})
 public class InMemoryResultProcessorTest {
 
     @Autowired
-    private ExaminationsConfigTest ec;
+    private ExaminationsConfig ec;
     private final InMemoryResultProcessor irp;
     String path = "D:\\Java\\Examinations\\src\\main\\resources\\right-answers.txt";
 
-
-    public InMemoryResultProcessorTest(@Autowired ExaminationsConfigTest ec) {
+    public InMemoryResultProcessorTest(@Autowired ExaminationsConfig ec) {
         this.ec = ec;
         this.irp = new InMemoryResultProcessor(ec);
     }
